@@ -1,13 +1,19 @@
 import React from "react";
-import { View, Image, StyleSheet } from "react-native";
+import { View, Image, Animated, StyleSheet } from "react-native";
 
-export default () => (
-  <View style={styles.container}>
+interface SplashScreenProps {
+  fadeAnim: Animated.Value;
+}
+
+export default ({ fadeAnim }: SplashScreenProps) => (
+  <Animated.View
+    style={[styles.container, { transform: [{ translateY: fadeAnim }] }]}
+  >
     <Image
       source={require("../../../assets/splash.gif")}
       style={styles.image}
     />
-  </View>
+  </Animated.View>
 );
 
 const styles = StyleSheet.create({
