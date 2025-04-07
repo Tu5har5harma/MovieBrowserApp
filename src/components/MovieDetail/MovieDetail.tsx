@@ -8,6 +8,8 @@ import {
   StyleSheet,
 } from "react-native";
 import { Movie } from "../../types/movie";
+import { Strings } from "../../constants/Strings";
+import { Colors } from "../../constants/Colors";
 
 interface MovieDetailProps {
   route: { params: { movie: Movie } };
@@ -50,9 +52,13 @@ export default ({ route }: MovieDetailProps) => {
         ]}
       >
         <Text style={styles.title}>{movie.title}</Text>
-        <Text style={styles.date}>Release Date: {movie.release_date}</Text>
+        <Text style={styles.date}>
+          {Strings.RELEASE_DATE_LABEL}
+          {movie.release_date}
+        </Text>
         <Text style={styles.rating}>
-          Rating: {movie.vote_average.toFixed(1)}
+          {Strings.RATING_LABEL}
+          {movie.vote_average.toFixed(1)}
         </Text>
         <Text style={styles.overview}>{movie.overview}</Text>
       </Animated.View>
@@ -61,17 +67,22 @@ export default ({ route }: MovieDetailProps) => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#fff" },
+  container: { flex: 1, backgroundColor: Colors.WHITE },
   backdrop: { width: "100%", height: 250, resizeMode: "cover" },
   content: {
     padding: 15,
-    backgroundColor: "#fff",
+    backgroundColor: Colors.WHITE,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     marginTop: -20,
   },
-  title: { fontSize: 24, fontWeight: "bold", color: "#333", marginBottom: 10 },
-  date: { fontSize: 16, color: "#666", marginBottom: 5 },
-  rating: { fontSize: 16, color: "#666", marginBottom: 15 },
-  overview: { fontSize: 16, color: "#333", lineHeight: 24 },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: Colors.DARK_GRAY,
+    marginBottom: 10,
+  },
+  date: { fontSize: 16, color: Colors.MEDIUM_GRAY, marginBottom: 5 },
+  rating: { fontSize: 16, color: Colors.MEDIUM_GRAY, marginBottom: 15 },
+  overview: { fontSize: 16, color: Colors.DARK_GRAY, lineHeight: 24 },
 });
