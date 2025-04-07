@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Image, Animated, StyleSheet } from "react-native";
+import { View, Image, Animated } from "react-native";
+import { styles } from "./SplashScreenStyles";
 
 interface SplashScreenProps {
   fadeAnim: Animated.Value;
@@ -15,13 +16,3 @@ export default ({ fadeAnim }: SplashScreenProps) => (
     />
   </Animated.View>
 );
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#fff",
-  },
-  image: { width: "100%", height: "100%", resizeMode: "contain" },
-});

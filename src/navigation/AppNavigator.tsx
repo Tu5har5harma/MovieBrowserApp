@@ -3,10 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import { MaterialIcons } from "@expo/vector-icons";
-import NowPlayingScreen from "../screens/NowPlayingScreen";
-import PopularScreen from "../screens/PopularScreen";
-import TopRatedScreen from "../screens/TopRatedScreen";
-import UpcomingScreen from "../screens/UpcomingScreen";
+import MovieListScreen from "../screens/MovieListScreen";
 import MovieDetail from "../components/MovieDetail/MovieDetail";
 import { Strings } from "../constants/Strings";
 import { Colors } from "../constants/Colors";
@@ -24,7 +21,7 @@ const TabNavigator = () => (
   >
     <Tab.Screen
       name={Strings.TAB_NOW_PLAYING}
-      component={NowPlayingScreen}
+      component={() => <MovieListScreen endpoint="/movie/now_playing" />}
       options={{
         tabBarIcon: ({ color, size }) => (
           <MaterialIcons name="play-circle-outline" size={size} color={color} />
@@ -33,7 +30,7 @@ const TabNavigator = () => (
     />
     <Tab.Screen
       name={Strings.TAB_POPULAR}
-      component={PopularScreen}
+      component={() => <MovieListScreen endpoint="/movie/popular" />}
       options={{
         tabBarIcon: ({ color, size }) => (
           <MaterialIcons name="star" size={size} color={color} />
@@ -42,7 +39,7 @@ const TabNavigator = () => (
     />
     <Tab.Screen
       name={Strings.TAB_TOP_RATED}
-      component={TopRatedScreen}
+      component={() => <MovieListScreen endpoint="/movie/top_rated" />}
       options={{
         tabBarIcon: ({ color, size }) => (
           <MaterialIcons name="thumb-up" size={size} color={color} />
@@ -51,7 +48,7 @@ const TabNavigator = () => (
     />
     <Tab.Screen
       name={Strings.TAB_UPCOMING}
-      component={UpcomingScreen}
+      component={() => <MovieListScreen endpoint="/movie/upcoming" />}
       options={{
         tabBarIcon: ({ color, size }) => (
           <MaterialIcons name="event" size={size} color={color} />

@@ -1,15 +1,8 @@
 import React, { useEffect, useRef } from "react";
-import {
-  View,
-  Text,
-  Image,
-  ScrollView,
-  Animated,
-  StyleSheet,
-} from "react-native";
+import { View, Text, Image, ScrollView, Animated } from "react-native";
 import { Movie } from "../../types/movie";
+import { styles } from "./MovieDetailStyles";
 import { Strings } from "../../constants/Strings";
-import { Colors } from "../../constants/Colors";
 
 interface MovieDetailProps {
   route: { params: { movie: Movie } };
@@ -65,24 +58,3 @@ export default ({ route }: MovieDetailProps) => {
     </ScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: Colors.WHITE },
-  backdrop: { width: "100%", height: 250, resizeMode: "cover" },
-  content: {
-    padding: 15,
-    backgroundColor: Colors.WHITE,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    marginTop: -20,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: Colors.DARK_GRAY,
-    marginBottom: 10,
-  },
-  date: { fontSize: 16, color: Colors.MEDIUM_GRAY, marginBottom: 5 },
-  rating: { fontSize: 16, color: Colors.MEDIUM_GRAY, marginBottom: 15 },
-  overview: { fontSize: 16, color: Colors.DARK_GRAY, lineHeight: 24 },
-});

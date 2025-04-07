@@ -1,6 +1,7 @@
 import React from "react";
-import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import { Movie } from "../../types/movie";
+import { styles } from "./MovieCardStyles";
 
 interface MovieCardProps {
   movie: Movie;
@@ -20,18 +21,3 @@ export default ({ movie, onPress }: MovieCardProps) => (
     </View>
   </TouchableOpacity>
 );
-
-const styles = StyleSheet.create({
-  card: {
-    flexDirection: "row",
-    padding: 10,
-    backgroundColor: "#fff",
-    marginVertical: 5,
-    borderRadius: 8,
-  },
-  poster: { width: 100, height: 150, borderRadius: 5 },
-  info: { flex: 1, paddingLeft: 10 },
-  title: { fontSize: 16, fontWeight: "bold", color: "#333" },
-  date: { fontSize: 14, color: "#666" },
-  rating: { fontSize: 14, color: "#666" },
-});

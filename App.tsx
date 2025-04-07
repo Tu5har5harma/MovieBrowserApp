@@ -10,21 +10,28 @@ export default function App() {
   const homeAnim = useRef(new Animated.Value(300)).current;
 
   useEffect(() => {
-    setTimeout(() => {
-      setAppIsReady(true);
-      Animated.parallel([
-        Animated.timing(splashAnim, {
-          toValue: -1000,
-          duration: 1000,
-          useNativeDriver: true,
-        }),
-        Animated.timing(homeAnim, {
-          toValue: 0,
-          duration: 1000,
-          useNativeDriver: true,
-        }),
-      ]).start();
-    }, 2000);
+    async function prepare() {
+      try {
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        setAppIsReady(true);
+        Animated.parallel([
+          Animated.timing(splashAnim, {
+            toValue: -1000,
+            duration: 1000,
+            useNativeDriver: true,
+          }),
+          Animated.timing(homeAnim, {
+            toValue: 0,
+            duration: 1000,
+            useNativeDriver: true,
+          }),
+        ]).start();
+      }
+    }
+    prepare();
   }, [splashAnim, homeAnim]);
 
   return (

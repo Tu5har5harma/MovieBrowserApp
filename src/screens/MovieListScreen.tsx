@@ -1,21 +1,26 @@
 import React, { useState, useEffect } from "react";
-import { FlatList, ActivityIndicator, StyleSheet } from "react-native";
+import { FlatList, ActivityIndicator } from "react-native";
 import { fetchMovies } from "../api/tmdb";
 import MovieCard from "../components/MovieCard/MovieCard";
 import { Movie } from "../types/movie";
 import { useNavigation } from "@react-navigation/native";
+import { styles } from "./ScreenStyles";
 
-export default () => {
+interface MovieListScreenProps {
+  endpoint: string;
+}
+
+export default ({ endpoint }: MovieListScreenProps) => {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
 
   useEffect(() => {
-    fetchMovies("/movie/popular")
-      .then(setMovies)
+    fetchMovies(endpoint)
+      .then((data) => setMovies(data))
       .catch(() => setMovies([]))
       .finally(() => setLoading(false));
-  }, []);
+  }, [endpoint]);
 
   return loading ? (
     <ActivityIndicator size="large" color="#0000ff" style={styles.loader} />
@@ -33,8 +38,3 @@ export default () => {
     />
   );
 };
-
-const styles = StyleSheet.create({
-  loader: { flex: 1, justifyContent: "center", alignItems: "center" },
-  list: { padding: 10 },
-});
