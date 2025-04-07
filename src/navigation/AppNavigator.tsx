@@ -21,7 +21,8 @@ const TabNavigator = () => (
   >
     <Tab.Screen
       name={Strings.TAB_NOW_PLAYING}
-      component={() => <MovieListScreen endpoint="/movie/now_playing" />}
+      component={MovieListScreen}
+      initialParams={{ endpoint: "/movie/now_playing" }}
       options={{
         tabBarIcon: ({ color, size }) => (
           <MaterialIcons name="play-circle-outline" size={size} color={color} />
@@ -30,7 +31,8 @@ const TabNavigator = () => (
     />
     <Tab.Screen
       name={Strings.TAB_POPULAR}
-      component={() => <MovieListScreen endpoint="/movie/popular" />}
+      component={MovieListScreen}
+      initialParams={{ endpoint: "/movie/popular" }}
       options={{
         tabBarIcon: ({ color, size }) => (
           <MaterialIcons name="star" size={size} color={color} />
@@ -39,7 +41,8 @@ const TabNavigator = () => (
     />
     <Tab.Screen
       name={Strings.TAB_TOP_RATED}
-      component={() => <MovieListScreen endpoint="/movie/top_rated" />}
+      component={MovieListScreen}
+      initialParams={{ endpoint: "/movie/top_rated" }}
       options={{
         tabBarIcon: ({ color, size }) => (
           <MaterialIcons name="thumb-up" size={size} color={color} />
@@ -48,7 +51,8 @@ const TabNavigator = () => (
     />
     <Tab.Screen
       name={Strings.TAB_UPCOMING}
-      component={() => <MovieListScreen endpoint="/movie/upcoming" />}
+      component={MovieListScreen}
+      initialParams={{ endpoint: "/movie/upcoming" }}
       options={{
         tabBarIcon: ({ color, size }) => (
           <MaterialIcons name="event" size={size} color={color} />

@@ -7,10 +7,11 @@ import { useNavigation } from "@react-navigation/native";
 import { styles } from "./ScreenStyles";
 
 interface MovieListScreenProps {
-  endpoint: string;
+  route: { params: { endpoint: string } };
 }
 
-export default ({ endpoint }: MovieListScreenProps) => {
+export default ({ route }: MovieListScreenProps) => {
+  const { endpoint } = route.params;
   const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
@@ -35,6 +36,7 @@ export default ({ endpoint }: MovieListScreenProps) => {
         />
       )}
       contentContainerStyle={styles.list}
+      showsVerticalScrollIndicator={false}
     />
   );
 };
