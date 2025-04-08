@@ -178,13 +178,17 @@ const MovieListScreen: React.FC<MovieListScreenProps> = ({ route }) => {
         )}
       </View>
       {loading ? (
-        <ActivityIndicator size="large" color={Colors.BLUE} style={styles.loader} />
+        <ActivityIndicator
+          size="large"
+          color={Colors.BLUE}
+          style={styles.loader}
+        />
       ) : filteredMovies.length === 0 ? (
         <Text style={styles.noMoviesText}>{Strings.NO_MOVIES_FOUND}</Text>
       ) : (
         <FlatList
           data={filteredMovies}
-          keyExtractor={(item) => item.id.toString()}
+          keyExtractor={(item, index) => `${item} + ${index}`}
           renderItem={({ item }) => (
             <MovieCard
               movie={item}
