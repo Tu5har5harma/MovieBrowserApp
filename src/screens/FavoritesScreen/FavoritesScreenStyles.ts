@@ -3,7 +3,17 @@ import { Colors } from "../../constants/Colors";
 
 export const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.LIGHT_GRAY },
-  list: { padding: 10 },
+  header: {
+    paddingTop: 10,
+    backgroundColor: Colors.LIGHT_GRAY,
+  },
+  list: {
+    paddingHorizontal: 10,
+    paddingBottom: 10,
+  },
+  flatList: {
+    flex: 1,
+  },
   noFavoritesText: {
     flex: 1,
     textAlign: "center",

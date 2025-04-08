@@ -2,13 +2,14 @@ import { StyleSheet } from "react-native";
 import { Colors } from "../../constants/Colors";
 
 export const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  container: { flex: 1, backgroundColor: Colors.LIGHT_GRAY },
+  header: {
+    paddingTop: 10, // Consistent top padding
     backgroundColor: Colors.LIGHT_GRAY,
   },
   input: {
     height: 50,
-    margin: 10,
+    marginHorizontal: 10,
     paddingHorizontal: 15,
     backgroundColor: Colors.WHITE,
     borderRadius: 25,
@@ -18,13 +19,6 @@ export const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.2,
     shadowRadius: 2,
-  },
-  noMoviesText: {
-    flex: 1,
-    textAlign: "center",
-    fontSize: 18,
-    color: Colors.MEDIUM_GRAY,
-    paddingTop: 20,
   },
   emptyContainer: { flex: 1, justifyContent: "center", alignItems: "center" },
   emptyText: { fontSize: 18, color: Colors.MEDIUM_GRAY, marginTop: 10 },

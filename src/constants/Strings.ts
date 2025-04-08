@@ -13,9 +13,16 @@ export const Strings = {
   RELEASE_DATE_LABEL: "Release Date: ",
   RATING_LABEL: "Rating: ",
 
-  //Other
+  // SearchScreen
   SEARCH_PLACEHOLDER: "Search movies...",
-  CATEGORY_SEARCH_PLACEHOLDER: "Search in this category...",
+  SEARCH_PROMPT: "Search for a movie to begin",
   NO_MOVIES_FOUND: "No movies found",
-  SEARCH_PROMPT: "Start typing to search",
+
+  // MovieListScreen
+  CATEGORY_SEARCH_PLACEHOLDER: "Search in this category...",
+
+  // SortComponent (already using labels from sortOptions, but we’ll keep them here for consistency)
+  SORT_LIKED: "Liked",
+  SORT_RELEASE_DATE: "Release Date",
+  SORT_RATING: "Rating",
 };

@@ -7,4 +7,5 @@ export interface Movie {
   overview: string;
   backdrop_path?: string;
   genre_ids: number[];
+  isFavorite?: boolean;
 }

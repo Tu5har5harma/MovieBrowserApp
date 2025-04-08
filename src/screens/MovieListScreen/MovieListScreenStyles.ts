@@ -3,11 +3,13 @@ import { Colors } from "../../constants/Colors";
 
 export const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.LIGHT_GRAY },
-  loader: { flex: 1, justifyContent: "center", alignItems: "center" },
-  list: { padding: 10 },
+  header: {
+    paddingTop: 10,
+    backgroundColor: Colors.LIGHT_GRAY,
+  },
   input: {
     height: 50,
-    margin: 10,
+    marginHorizontal: 10,
     paddingHorizontal: 15,
     backgroundColor: Colors.WHITE,
     borderRadius: 25,
@@ -24,5 +26,13 @@ export const styles = StyleSheet.create({
     fontSize: 18,
     color: Colors.MEDIUM_GRAY,
     paddingTop: 20,
+  },
+  loader: { flex: 1, justifyContent: "center", alignItems: "center" },
+  list: {
+    paddingHorizontal: 10,
+    paddingBottom: 10,
+  },
+  flatList: {
+    flex: 1, // Ensure FlatList takes remaining space
   },
 });
