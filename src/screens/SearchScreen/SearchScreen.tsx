@@ -71,9 +71,6 @@ const SearchScreen: React.FC<SearchScreenProps> = () => {
           autoCapitalize="none"
           returnKeyType="search"
         />
-        {query && (
-          <SortComponent sortType={sortType} onSortChange={setSortType} />
-        )}
       </View>
       {query ? (
         <MovieListScreen
