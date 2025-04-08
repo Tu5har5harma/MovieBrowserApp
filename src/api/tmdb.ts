@@ -20,3 +20,15 @@ export const fetchMovies = async (endpoint: string) => {
     throw error;
   }
 };
+
+export const searchMovies = async (query: string) => {
+  try {
+    const response = await api.get("/search/movie", {
+      params: { query, language: "en-US", page: 1 },
+    });
+    return response.data.results;
+  } catch (error) {
+    console.error("Search Error:", error);
+    throw error;
+  }
+};

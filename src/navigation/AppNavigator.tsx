@@ -3,7 +3,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import { MaterialIcons } from "@expo/vector-icons";
-import MovieListScreen from "../screens/MovieListScreen";
+import MovieListScreen from "../screens/MovieListScreen/MovieListScreen";
+import SearchScreen from "../screens/SearchScreen/SearchScreen";
 import MovieDetail from "../components/MovieDetail/MovieDetail";
 import { Strings } from "../constants/Strings";
 import { Colors } from "../constants/Colors";
@@ -56,6 +57,15 @@ const TabNavigator = () => (
       options={{
         tabBarIcon: ({ color, size }) => (
           <MaterialIcons name="event" size={size} color={color} />
+        ),
+      }}
+    />
+    <Tab.Screen
+      name="Search"
+      component={SearchScreen}
+      options={{
+        tabBarIcon: ({ color, size }) => (
+          <MaterialIcons name="search" size={size} color={color} />
         ),
       }}
     />
