@@ -21,6 +21,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 type RootStackParamList = {
   MovieDetail: { movie: Movie };
+  Favorites: undefined;
 };
 
 interface MovieListScreenProps {
@@ -34,35 +35,51 @@ const MovieListScreen: React.FC<MovieListScreenProps> = ({ route }) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [query, setQuery] = useState<string>("");
   const [sortType, setSortType] = useState<SortType | null>(null);
+  const [page, setPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(1);
+  const [isFetchingMore, setIsFetchingMore] = useState<boolean>(false);
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-  const fetchData = async (): Promise<void> => {
-    setLoading(true);
+  const fetchData = async (
+    pageNum: number,
+    append: boolean = false
+  ): Promise<void> => {
+    if (isFetchingMore && append) return;
+    setLoading(!append);
+    setIsFetchingMore(append);
     try {
       const isSearch = endpoint.includes("/search/movie");
       const data = isSearch
-        ? await searchMovies(endpoint.split("query=")[1])
-        : await fetchMovies(endpoint);
+        ? await searchMovies(endpoint.split("query=")[1], pageNum)
+        : await fetchMovies(endpoint, pageNum);
       const favorites = await AsyncStorage.getItem("favorites");
       const favList = favorites ? JSON.parse(favorites) : [];
-      const updatedMovies = data.map((movie: Movie) => ({
+      const updatedMovies = data.results.map((movie: Movie) => ({
         ...movie,
         isFavorite: favList.some((fav: Movie) => fav.id === movie.id),
       }));
-      setMovies(updatedMovies);
-      applySortAndFilter(updatedMovies, sortType, query);
-    } catch {
-      setMovies([]);
-      setFilteredMovies([]);
+      setMovies((prev) =>
+        append ? [...prev, ...updatedMovies] : updatedMovies
+      );
+      setTotalPages(data.total_pages);
+      applySortAndFilter(
+        append ? [...movies, ...updatedMovies] : updatedMovies,
+        sortType,
+        query
+      );
+    } catch (error) {
+      setMovies(append ? movies : []);
+      setFilteredMovies(append ? filteredMovies : []);
     } finally {
       setLoading(false);
+      setIsFetchingMore(false);
     }
   };
 
   useEffect(() => {
-    fetchData();
-    const unsubscribe = navigation.addListener("focus", fetchData);
+    fetchData(1);
+    const unsubscribe = navigation.addListener("focus", () => fetchData(1));
     return unsubscribe;
   }, [endpoint, navigation]);
 
@@ -119,6 +136,29 @@ const MovieListScreen: React.FC<MovieListScreenProps> = ({ route }) => {
     );
   };
 
+  const handleEndReached = (): void => {
+    if (
+      !endpoint.includes("/search/movie") &&
+      page < totalPages &&
+      !isFetchingMore
+    ) {
+      setPage((prev) => {
+        const nextPage = prev + 1;
+        fetchData(nextPage, true);
+        return nextPage;
+      });
+    }
+  };
+
+  const renderFooter = (): JSX.Element | null => {
+    if (!isFetchingMore) return null;
+    return (
+      <View style={styles.footerLoader}>
+        <ActivityIndicator size="small" color={Colors.BLUE} />
+      </View>
+    );
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -138,7 +178,7 @@ const MovieListScreen: React.FC<MovieListScreenProps> = ({ route }) => {
         )}
       </View>
       {loading ? (
-        <ActivityIndicator size="large" color="#0000ff" style={styles.loader} />
+        <ActivityIndicator size="large" color={Colors.BLUE} style={styles.loader} />
       ) : filteredMovies.length === 0 ? (
         <Text style={styles.noMoviesText}>{Strings.NO_MOVIES_FOUND}</Text>
       ) : (
@@ -156,6 +196,9 @@ const MovieListScreen: React.FC<MovieListScreenProps> = ({ route }) => {
           )}
           contentContainerStyle={styles.list}
           style={styles.flatList}
+          onEndReached={handleEndReached}
+          onEndReachedThreshold={0.5}
+          ListFooterComponent={renderFooter}
         />
       )}
     </View>

@@ -2,7 +2,10 @@ import { StyleSheet } from "react-native";
 import { Colors } from "../../constants/Colors";
 
 export const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: Colors.LIGHT_GRAY },
+  container: {
+    flex: 1,
+    backgroundColor: Colors.LIGHT_GRAY,
+  },
   header: {
     paddingTop: 10,
     backgroundColor: Colors.LIGHT_GRAY,

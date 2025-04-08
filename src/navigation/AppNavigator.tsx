@@ -10,9 +10,16 @@ import FavoritesScreen from "../screens/FavoritesScreen/FavoritesScreen";
 import MovieDetail from "../components/MovieDetail/MovieDetail";
 import { Strings } from "../constants/Strings";
 import { Colors } from "../constants/Colors";
+import { Movie } from "../types/movie";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
+
+type RootStackParamList = {
+  Home: undefined;
+  MovieDetail: { movie: Movie };
+  Favorites: undefined;
+};
 
 const TabNavigator = () => (
   <Tab.Navigator
@@ -75,7 +82,7 @@ const TabNavigator = () => (
   </Tab.Navigator>
 );
 
-export default () => (
+const AppNavigator: React.FC = () => (
   <NavigationContainer>
     <Stack.Navigator>
       <Stack.Screen
@@ -126,3 +133,5 @@ export default () => (
     </Stack.Navigator>
   </NavigationContainer>
 );
+
+export default AppNavigator;

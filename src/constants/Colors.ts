@@ -6,4 +6,5 @@ export const Colors = {
   BLUE: '#0288D1',
   SHADOW: '#000000',
   RED: '#D32F2F',
+  BLUE_FF: 'colors.BLUE'
 };

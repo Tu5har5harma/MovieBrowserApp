@@ -2,7 +2,10 @@ import { StyleSheet } from "react-native";
 import { Colors } from "../../constants/Colors";
 
 export const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: Colors.LIGHT_GRAY },
+  container: {
+    flex: 1,
+    backgroundColor: Colors.LIGHT_GRAY,
+  },
   header: {
     paddingTop: 10,
     backgroundColor: Colors.LIGHT_GRAY,
@@ -27,12 +30,20 @@ export const styles = StyleSheet.create({
     color: Colors.MEDIUM_GRAY,
     paddingTop: 20,
   },
-  loader: { flex: 1, justifyContent: "center", alignItems: "center" },
+  footerLoader: {
+    paddingVertical: 20,
+    alignItems: "center",
+  },
+  loader: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
   list: {
     paddingHorizontal: 10,
     paddingBottom: 10,
   },
   flatList: {
-    flex: 1, // Ensure FlatList takes remaining space
+    flex: 1,
   },
 });

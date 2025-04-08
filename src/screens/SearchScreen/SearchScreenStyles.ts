@@ -2,9 +2,12 @@ import { StyleSheet } from "react-native";
 import { Colors } from "../../constants/Colors";
 
 export const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: Colors.LIGHT_GRAY },
+  container: {
+    flex: 1,
+    backgroundColor: Colors.LIGHT_GRAY,
+  },
   header: {
-    paddingTop: 10, // Consistent top padding
+    paddingTop: 10,
     backgroundColor: Colors.LIGHT_GRAY,
   },
   input: {
@@ -20,6 +23,14 @@ export const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 2,
   },
-  emptyContainer: { flex: 1, justifyContent: "center", alignItems: "center" },
-  emptyText: { fontSize: 18, color: Colors.MEDIUM_GRAY, marginTop: 10 },
+  emptyContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  emptyText: {
+    fontSize: 18,
+    color: Colors.MEDIUM_GRAY,
+    marginTop: 10,
+  },
 });

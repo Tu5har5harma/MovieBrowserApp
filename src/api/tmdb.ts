@@ -1,4 +1,11 @@
 import axios from "axios";
+import { Movie } from "../types/movie";
+
+interface PaginatedResponse {
+  page: number;
+  total_pages: number;
+  results: Movie[];
+}
 
 const api = axios.create({
   baseURL: "https://api.themoviedb.org/3",
@@ -9,24 +16,30 @@ const api = axios.create({
   },
 });
 
-export const fetchMovies = async (endpoint: string) => {
+export const fetchMovies = async (
+  endpoint: string,
+  page: number = 1
+): Promise<PaginatedResponse> => {
   try {
     const response = await api.get(endpoint, {
-      params: { language: "en-US", page: 1 },
+      params: { language: "en-US", page },
     });
-    return response.data.results;
+    return response.data;
   } catch (error) {
     console.error("API Error:", error);
     throw error;
   }
 };
 
-export const searchMovies = async (query: string) => {
+export const searchMovies = async (
+  query: string,
+  page: number = 1
+): Promise<PaginatedResponse> => {
   try {
     const response = await api.get("/search/movie", {
-      params: { query, language: "en-US", page: 1 },
+      params: { query, language: "en-US", page },
     });
-    return response.data.results;
+    return response.data;
   } catch (error) {
     console.error("Search Error:", error);
     throw error;

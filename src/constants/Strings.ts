@@ -21,7 +21,7 @@ export const Strings = {
   // MovieListScreen
   CATEGORY_SEARCH_PLACEHOLDER: "Search in this category...",
 
-  // SortComponent (already using labels from sortOptions, but we’ll keep them here for consistency)
+  // SortComponent
   SORT_LIKED: "Liked",
   SORT_RELEASE_DATE: "Release Date",
   SORT_RATING: "Rating",
