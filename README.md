@@ -13,7 +13,7 @@ A React Native mobile application built with Expo and TypeScript to browse movie
 - **Favorites**: Save and view favorite movies locally using AsyncStorage.
 - **Sorting**: Sort movie lists by "Liked" (favorited), "Release Date", or "Rating" (hidden when no data; "Liked" excluded in Favorites).
 - **Pagination**: Infinite scrolling for bottom tab categories, fetching more data before reaching the end.
-- **Movie Details**: View detailed information for each movie (assumed implemented in `MovieDetail`).
+- **Movie Details**: View detailed information for each movie (implemented in `MovieDetail`).
 - **Type Safety**: Fully typed with TypeScript for components, navigation, and API responses.
 - **Centralized Strings**: All UI text managed in `src/constants/Strings.ts`.
 
