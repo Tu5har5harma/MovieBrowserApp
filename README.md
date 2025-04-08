@@ -28,7 +28,7 @@ A React Native mobile application built with Expo and TypeScript to browse movie
 
 1. **Clone the Repository**:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/Tu5har5harma/MovieBrowserApp.git
    cd movie-browser-app
    Start Expo: `npx expo start`
    Run via Expo Go (scan QR code) or emulator (press `a` for Android, `i` for iOS)
