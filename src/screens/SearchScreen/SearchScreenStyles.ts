@@ -14,6 +14,7 @@ export const styles = StyleSheet.create({
     height: 50,
     marginHorizontal: 10,
     paddingHorizontal: 15,
+    marginBottom: 4,
     backgroundColor: Colors.WHITE,
     borderRadius: 25,
     fontSize: 16,
