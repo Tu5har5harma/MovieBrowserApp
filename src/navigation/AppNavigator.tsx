@@ -3,8 +3,10 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import { MaterialIcons } from "@expo/vector-icons";
+import { TouchableOpacity } from "react-native";
 import MovieListScreen from "../screens/MovieListScreen/MovieListScreen";
 import SearchScreen from "../screens/SearchScreen/SearchScreen";
+import FavoritesScreen from "../screens/FavoritesScreen/FavoritesScreen";
 import MovieDetail from "../components/MovieDetail/MovieDetail";
 import { Strings } from "../constants/Strings";
 import { Colors } from "../constants/Colors";
@@ -18,6 +20,7 @@ const TabNavigator = () => (
       tabBarActiveTintColor: Colors.BLUE,
       tabBarInactiveTintColor: Colors.MEDIUM_GRAY,
       tabBarStyle: { backgroundColor: Colors.WHITE, paddingBottom: 5 },
+      headerShown: false,
     }}
   >
     <Tab.Screen
@@ -78,12 +81,47 @@ export default () => (
       <Stack.Screen
         name="Home"
         component={TabNavigator}
-        options={{ headerShown: false }}
+        options={({ navigation }) => ({
+          headerShown: true,
+          headerTitle: "Movie Browser",
+          headerStyle: { backgroundColor: Colors.WHITE },
+          headerTintColor: Colors.DARK_GRAY,
+          headerTitleAlign: "center",
+          headerRight: () => (
+            <TouchableOpacity
+              style={{ marginRight: 15 }}
+              onPress={() => navigation.navigate("Favorites")}
+            >
+              <MaterialIcons name="favorite" size={28} color={Colors.RED} />
+            </TouchableOpacity>
+          ),
+        })}
       />
       <Stack.Screen
         name="MovieDetail"
         component={MovieDetail}
-        options={{ title: Strings.MOVIE_DETAILS_TITLE }}
+        options={{
+          headerShown: true,
+          headerTitle: Strings.MOVIE_DETAILS_TITLE,
+          headerStyle: { backgroundColor: Colors.WHITE },
+          headerTintColor: Colors.DARK_GRAY,
+          headerTitleAlign: "center",
+          headerBackTitle: "",
+          headerBackTitleVisible: false,
+        }}
+      />
+      <Stack.Screen
+        name="Favorites"
+        component={FavoritesScreen}
+        options={{
+          headerShown: true,
+          headerTitle: "Favorites",
+          headerStyle: { backgroundColor: Colors.WHITE },
+          headerTintColor: Colors.DARK_GRAY,
+          headerTitleAlign: "center",
+          headerBackTitle: "",
+          headerBackTitleVisible: false,
+        }}
       />
     </Stack.Navigator>
   </NavigationContainer>

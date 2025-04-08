@@ -13,6 +13,7 @@ import { useNavigation } from "@react-navigation/native";
 import { styles } from "./MovieListScreenStyles";
 import { Colors } from "../../constants/Colors";
 import { Strings } from "../../constants/Strings";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface MovieListScreenProps {
   route: { params: { endpoint: string } };
@@ -26,25 +27,40 @@ export default ({ route }: MovieListScreenProps) => {
   const [query, setQuery] = useState("");
   const navigation = useNavigation();
 
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const isSearch = endpoint.includes("/search/movie");
+      const data = isSearch
+        ? await searchMovies(endpoint.split("query=")[1])
+        : await fetchMovies(endpoint);
+      const favorites = await AsyncStorage.getItem("favorites");
+      const favList = favorites ? JSON.parse(favorites) : [];
+      const updatedMovies = data.map((movie) => ({
+        ...movie,
+        isFavorite: favList.some((fav: Movie) => fav.id === movie.id),
+      }));
+      setMovies(updatedMovies);
+      setFilteredMovies(
+        query
+          ? updatedMovies.filter((movie) =>
+              movie.title.toLowerCase().includes(query.toLowerCase())
+            )
+          : updatedMovies
+      );
+    } catch {
+      setMovies([]);
+      setFilteredMovies([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const isSearch = endpoint.includes("/search/movie");
-        const data = isSearch
-          ? await searchMovies(endpoint.split("query=")[1])
-          : await fetchMovies(endpoint);
-        setMovies(data);
-        setFilteredMovies(data);
-      } catch {
-        setMovies([]);
-        setFilteredMovies([]);
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchData();
-  }, [endpoint]);
+    const unsubscribe = navigation.addListener("focus", fetchData);
+    return unsubscribe;
+  }, [endpoint, navigation]);
 
   useEffect(() => {
     const filtered = query
@@ -54,6 +70,27 @@ export default ({ route }: MovieListScreenProps) => {
       : movies;
     setFilteredMovies(filtered);
   }, [query, movies]);
+
+  const handleFavoriteToggle = (toggledMovie: Movie, isFavorite: boolean) => {
+    setMovies((prev) =>
+      prev.map((movie) =>
+        movie.id === toggledMovie.id ? { ...movie, isFavorite } : movie
+      )
+    );
+    setFilteredMovies((prev) =>
+      query
+        ? prev
+            .map((movie) =>
+              movie.id === toggledMovie.id ? { ...movie, isFavorite } : movie
+            )
+            .filter((movie) =>
+              movie.title.toLowerCase().includes(query.toLowerCase())
+            )
+        : prev.map((movie) =>
+            movie.id === toggledMovie.id ? { ...movie, isFavorite } : movie
+          )
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -82,6 +119,7 @@ export default ({ route }: MovieListScreenProps) => {
               onPress={() =>
                 navigation.navigate("MovieDetail", { movie: item })
               }
+              onFavoriteToggle={handleFavoriteToggle}
             />
           )}
           contentContainerStyle={styles.list}

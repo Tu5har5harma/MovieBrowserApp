@@ -6,10 +6,31 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.WHITE,
   },
+  imageContainer: {
+    position: "relative",
+  },
   backdrop: {
     width: "100%",
     height: 250,
     resizeMode: "cover",
+  },
+  favoriteButton: {
+    position: "absolute",
+    top: 10,
+    right: 10,
+  },
+  favoriteCircle: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: Colors.WHITE,
+    justifyContent: "center",
+    alignItems: "center",
+    elevation: 4,
+    shadowColor: Colors.SHADOW,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 3,
   },
   content: {
     padding: 15,
